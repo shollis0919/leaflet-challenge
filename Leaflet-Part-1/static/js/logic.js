@@ -4,7 +4,7 @@ let queryUrl = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_we
 // Perform a GET request to the query URL/
 d3.json(queryUrl).then(function (data) {
 
-  // Once we get a response, send the data.features object to the createFeatures function.
+// Once we get a response, send the data.features object to the createFeatures function.
 createFeatures(data.features);
 });
 
@@ -19,6 +19,7 @@ function onEachFeature(feature, layer) {
 
  // Create a GeoJSON layer that contains the features array on the earthquakeData object.
   // Run the onEachFeature function once for each piece of data in the array.
+  //pointToLayer sets up markers for earthquake sites based on magnitude and depth
   let earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
     pointToLayer: function (feature, latlng) {
