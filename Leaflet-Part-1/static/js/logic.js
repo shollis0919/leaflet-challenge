@@ -21,22 +21,18 @@ function onEachFeature(feature, layer) {
   // Run the onEachFeature function once for each piece of data in the array.
   let earthquakes = L.geoJSON(earthquakeData, {
     onEachFeature: onEachFeature,
-    pointToLayer: createMarkers
-
-});
-
-function createMarkers(feature, latlng) {
-  let options = {
-  fillOpacity: 0.75,
-  color: "black",
-  weight: 0.5,
-  fillColor: getColor(feature.geometry.coordinates[2]),
-  // Setting our circle's radius to equal the output of our markerSize() function:
-  // This will make our marker's size proportionate to its magnitude.
-  radius:markerSize(feature.properties.mag)
+    pointToLayer: function (feature, latlng) {
+			return L.circleMarker(latlng, {
+      fillOpacity: 0.75,
+      color: "black",
+      weight: 0.5,
+      fillColor: getColor(feature.geometry.coordinates[2]),
+      // Setting our circle's radius to equal the output of our markerSize() function:
+      // This will make our marker's size proportionate to its magnitude.
+      radius:markerSize(feature.properties.mag)
+    });
   }
-  return L.circleMarker(latlng,options);
-}
+});
 
 // function determines marker size based on magnitude
 function markerSize(mag) {
